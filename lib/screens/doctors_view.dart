@@ -21,6 +21,8 @@ class DoctorsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.black,
+        title: Text('Doctors'),
         backgroundColor: Colors.white,
       ),
       body: FutureBuilder(
@@ -28,6 +30,10 @@ class DoctorsView extends StatelessWidget {
           builder: (context, snap) {
             if (snap.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
+            } else if (snap.data == null) {
+              return Center(
+                child: Text('No data'),
+              );
             } else {
               return ListView.builder(
                   itemCount: (snap.data as List).length,
@@ -40,9 +46,8 @@ class DoctorsView extends StatelessWidget {
                                 'https://st2.depositphotos.com/4226061/9064/v/950/depositphotos_90647730-stock-illustration-female-doctor-avatar-icon.jpg')),
                         onTap: () {
                           launchUrl(Uri.parse(
-                              'http://maps.google.com/maps?q=${(snap.data as dynamic)[index]['lattitude']},${(snap.data as dynamic)[index]['longitude']}'
-                              // 'https://www.google.com/maps/@${(snap.data as dynamic)[index]['lattitude']},${(snap.data as dynamic)[index]['longitude']},14.15z'
-                              ));
+                              // 'http://maps.google.com/maps?q=${(snap.data as dynamic)[index]['lattitude']},${(snap.data as dynamic)[index]['longitude']}'
+                              'https://www.google.com/maps/@${(snap.data as dynamic)[index]['lattitude']},${(snap.data as dynamic)[index]['longitude']},14.15z'));
                         },
                         title: Text((snap.data as dynamic)[index]['name']),
                         subtitle: Text(

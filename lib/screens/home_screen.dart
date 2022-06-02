@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pet_spotter/screens/doctors_view.dart';
+import 'package:pet_spotter/screens/products.dart';
 import 'package:pet_spotter/utils/network_service.dart';
 import 'package:pet_spotter/widgets/ImagePredictor.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../widgets/single_card.dart';
 import '/models/petmodel.dart';
 import '/screens/adopt_pet_screen.dart';
@@ -63,14 +67,38 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
-              height: 80,
+              // height: 80,
+              child: Center(
+                child: Lottie.network(
+                  "https://assets1.lottiefiles.com/packages/lf20_erya171l.json",
+                ),
+              ),
             ),
             Card(
               child: ListTile(
-                title: Text('Doctors'),
+                title: Text(
+                  'Doctors',
+                  style: TextStyle(fontSize: 30),
+                ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return DoctorsView();
+                  }));
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text(
+                  'Products',
+                  style: TextStyle(fontSize: 30),
+                ),
+                onTap: () async {
+                  // await LaunchApp.openApp(
+                  //   androidPackageName: 'com.google.android.apps.messaging',
+                  // );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Products();
                   }));
                 },
               ),
